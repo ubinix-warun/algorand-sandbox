@@ -3,7 +3,7 @@ FROM golang:$GO_VERSION-alpine
 
 # Environment variables used by install.sh
 ARG URL=https://github.com/ubinix-warun/algorand-indexer
-ARG BRANCH=develope-pub
+ARG BRANCH=develop-pub
 ARG SHA=""
 
 ENV HOME /opt/indexer
