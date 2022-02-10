@@ -32,8 +32,12 @@ services:
         URL: "${INDEXER_URL}"
         BRANCH: "${INDEXER_BRANCH}"
         SHA: "${INDEXER_SHA}"
+    # For External build.
+    # container_name: "algorand-indexer"
+    # image: "algorand-indexer"
     ports:
       - 8980:8980
+      - 1323:1323 # PubSub socket!
     restart: unless-stopped
     environment:
       DISABLED: "${INDEXER_DISABLED}"
