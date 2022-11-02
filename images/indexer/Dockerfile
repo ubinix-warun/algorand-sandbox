@@ -1,9 +1,9 @@
-ARG GO_VERSION=1.17.5
+ARG GO_VERSION=1.18.1
 FROM golang:$GO_VERSION-alpine
 
 # Environment variables used by install.sh
-ARG URL=https://github.com/algorand/indexer
-ARG BRANCH=master
+ARG URL=https://github.com/ubinix-warun/algorand-indexer
+ARG BRANCH=develop-pubsocket
 ARG SHA=""
 
 ENV HOME /opt/indexer

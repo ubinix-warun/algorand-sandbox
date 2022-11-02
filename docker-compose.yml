@@ -2,7 +2,7 @@ version: '3'
 
 services:
   algod:
-    # image: "algorand-sandbox_algod"
+    # image: "algorand-sandbox_algod" # For Dev.
     container_name: "${ALGOD_CONTAINER:-algorand-sandbox-algod}"
     build:
       context: .
@@ -27,7 +27,7 @@ services:
       - ${CDT_PORT:-9392}:9392
 
   indexer:
-    # image: algorand-indexer
+    # image: algorand-indexer # For Dev.
     container_name: "${INDEXER_CONTAINER:-algorand-sandbox-indexer}"
     build:
       context: .
@@ -43,7 +43,7 @@ services:
     environment:
       DISABLED: "${INDEXER_DISABLED}"
       PORT: "8980"
-      PUBSOCKET: "1322"
+      PUBSOCKET: "1322" # PubSocket!
       PUBTOKEN: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       SNAPSHOT: ""
       CONNECTION_STRING: "host=indexer-db port=5432 user=algorand password=algorand dbname=indexer_db sslmode=disable"

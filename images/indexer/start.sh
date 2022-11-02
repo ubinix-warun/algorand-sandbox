@@ -8,6 +8,8 @@
 #   CONNECTION_STRING - the postgres connection string to use.
 #   SNAPSHOT          - snapshot to import, if set don't connect to algod.
 #   PORT              - port to start indexer on.
+#   PUBSOCKET         - port to start pubsocket on.
+#   PUBTOKEN          - token to use when connecting to pubsocket.
 #   ALGOD_ADDR        - host:port to connect to for algod.
 #   ALGOD_TOKEN       - token to use when connecting to algod.
 set -e
@@ -29,10 +31,14 @@ start_with_algod() {
   /tmp/algorand-indexer daemon \
     --dev-mode \
     --server ":$PORT" \
+    --pubsocket ":$PUBSOCKET" \
+    --pubtoken "$PUBTOKEN" \
     -P "$CONNECTION_STRING" \
     --algod-net "${ALGOD_ADDR}" \
     --algod-token "${ALGOD_TOKEN}" \
     --genesis "genesis.json" \
+    --data-dir /tmp \
+    --loglevel "debug" \
     --logfile "/tmp/indexer-log.txt" >> /tmp/command.txt
 }
 
@@ -59,12 +65,9 @@ import_and_start_readonly() {
 }
 
 disabled() {
-  go run /tmp/disabled.go -port "$PORT" -code 200 -message "Indexer disabled for this configuration."
+  echo "disabled!"
+  # go run /tmp/disabled.go -port "$PORT" -code 400 -message "Indexer disabled for this configuration."
 }
-
-# Make sure data directory is available in case we're using a version that requires it.
-export INDEXER_DATA=/tmp/indexer-data
-mkdir -p ${INDEXER_DATA}
 
 if [ ! -z "$DISABLED" ]; then
   disabled
